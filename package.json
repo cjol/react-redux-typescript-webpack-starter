@@ -22,15 +22,13 @@
       "webpack-dashboard -m -- webpack-dev-server --config configs/webpack.config.js --open",
     "dev:awesome":
       "webpack-dashboard -m -- webpack-dev-server --config configs/webpack.config.js --open --env.awesome",
-    "lint": "tslint --project tsconfig.json",
     "tsc": "tsc -p . --noEmit",
     "tsc:watch": "tsc -p . --noEmit -w",
     "test": "jest --config jest.json",
     "test:watch": "jest --config jest.json --watch",
     "test:update": "jest --config jest.json -u",
     "reinstall": "rm -rf node_modules && yarn",
-    "precommit": "yarn run lint",
-    "prepush": "yarn run lint & yarn run tsc & yarn run test"
+    "prepush": "yarn run tsc & yarn run test"
   },
   "dependencies": {
     "react": "16.2.0",
@@ -68,8 +66,6 @@
     "rimraf": "2.6.2",
     "ts-jest": "22.0.1",
     "ts-loader": "3.2.0",
-    "tslint": "5.9.1",
-    "tslint-react": "3.4.0",
     "typescript": "2.6.2",
     "webpack": "2",
     "webpack-dashboard": "^0.4.0",
