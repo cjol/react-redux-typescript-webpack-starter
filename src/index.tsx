@@ -1,52 +1,45 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-// tslint:disable:no-import-side-effect
-// side-effect imports here
-import './rxjs-imports';
-// tslint:enable:no-import-side-effect
+import "./rxjs-imports";
 
-import { App } from './app';
-import { store, browserHistory, epicMiddleware } from './store';
+import { App } from "./features/app/components";
+import { store, epicMiddleware } from "./store";
 
 const renderRoot = (app: JSX.Element) => {
-  ReactDOM.render(app, document.getElementById('root'));
+  ReactDOM.render(app, document.getElementById("root"));
 };
 
-if (process.env.NODE_ENV === 'production') {
-  renderRoot((
-    <App store={store} history={browserHistory} />
-  ));
-} else { // removed in production, hot-reload config
-  // tslint:disable-next-line:no-var-requires
-  const AppContainer = require('react-hot-loader').AppContainer;
-  renderRoot((
+if (process.env.NODE_ENV === "production") {
+  renderRoot(<App store={store} />);
+} else {
+  const AppContainer = require("react-hot-loader").AppContainer;
+  renderRoot(
     <AppContainer>
-      <App store={store} history={browserHistory} />
+      <App store={store} />
     </AppContainer>
-  ));
+  );
 
   if (module.hot) {
     // app
-    module.hot.accept('./app', async () => {
-      // const NextApp = require('./app').App;
-      const NextApp = (await System.import('./app')).App;
-      renderRoot((
+    module.hot.accept("./features/app/components", async () => {
+      const NextApp = (await System.import("./features/app/components")).App;
+      renderRoot(
         <AppContainer>
-          <NextApp store={store} history={browserHistory} />
+          <NextApp store={store} />
         </AppContainer>
-      ));
+      );
     });
 
     // reducers
-    module.hot.accept('./features/root-reducer', () => {
-      const newRootReducer = require('./features/root-reducer').default;
+    module.hot.accept("./root-reducer", () => {
+      const newRootReducer = require("./root-reducer").default;
       store.replaceReducer(newRootReducer);
     });
 
     // epics
-    module.hot.accept('./features/root-epic', () => {
-      const newRootEpic = require('./features/root-epic').default;
+    module.hot.accept("./root-epic", () => {
+      const newRootEpic = require("./root-epic").default;
       epicMiddleware.replaceEpic(newRootEpic);
     });
   }
