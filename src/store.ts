@@ -12,13 +12,14 @@ const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
-export const epicMiddleware = createEpicMiddleware(rootEpic);
+// export const epicMiddleware = createEpicMiddleware(rootEpic);
 export const browserHistory = createBrowserHistory();
 export const routerMiddleware = createRouterMiddleware(browserHistory);
 
 function configureStore(initialState?: RootState) {
   // configure middlewares
-  const middlewares = [epicMiddleware, routerMiddleware];
+  // const middlewares = [epicMiddleware, routerMiddleware];
+  const middlewares = [routerMiddleware];
   // compose enhancers
   const enhancer = composeEnhancers(applyMiddleware(...middlewares));
   // create store

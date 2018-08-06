@@ -1,9 +1,5 @@
-import { combineEpics } from "redux-observable";
+import { combineEpics, Epic } from "redux-observable";
+import { RootAction } from "./root-action";
+import { RootState } from "./root-reducer";
 
-import { epics as counter } from "Features/counter";
-
-export const rootEpic = combineEpics(
-  ...Object.values({
-    ...counter
-  })
-);
+export const rootEpic = combineEpics(...Object.values({}));
